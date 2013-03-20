@@ -4,7 +4,8 @@
  */
 
 package usermodel;
-
+import java.sql.*;
+import java.util.ArrayList;
 /**
  *
  * @author Rebecca
@@ -14,8 +15,20 @@ public class Main {
     /**
      * @param args the command line arguments
      */
+     static Statement stmt = null;
+     static ResultSet rs = null;
+    
     public static void main(String[] args) {
-        // TODO code application logic here
-    }
+   
+  ArrayList<String> getPost = new ArrayList<String>();
 
+        
+        Connect sample = new Connect ();
+        
+        getPost = sample.getAllCommittes();
+        
+        System.out.println(getPost.get(1));
+        
+    }
+   
 }
