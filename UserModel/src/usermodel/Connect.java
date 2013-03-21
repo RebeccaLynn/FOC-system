@@ -38,7 +38,7 @@ public class Connect {
                 conn1 = DriverManager.getConnection(dbURL, "root", null);
                 
                 Statement stmt = conn1.createStatement();
-                ResultSet rs = stmt.executeQuery("select * from committiees");
+                ResultSet rs = stmt.executeQuery("select * from committees");
                 while(rs.next()){
                     
                     resultList.add(rs.getString("cName"));
