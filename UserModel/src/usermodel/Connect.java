@@ -30,7 +30,7 @@ public class Connect {
     } 
 
         
-     public ArrayList getAllCommittes(){
+     public ArrayList getAllCommittees(){
             
             resultList.clear();
         System.out.println("ksks");
@@ -50,5 +50,25 @@ public class Connect {
      return resultList;
      
      }
+     
+     
+     public boolean insertFaculty(String first, String last, String department, String position){
+       try{
+                conn1 = DriverManager.getConnection(dbURL, "root", null);
+                PreparedStatement statement = conn1.prepareStatement("INSERT INTO members (fName,lName,department,position) VALUES ( ?, ?,?,?)");
+                statement.setString(1, first);
+                statement.setString(2, last);
+                statement.setString(3, department);
+                statement.setString(4, position);
+                statement.execute();
+               return true;          
+                
+       }      
+       catch(Exception e){
+                System.out.println(e);
+                return false;
+            }        
+     }
   
+     
 }

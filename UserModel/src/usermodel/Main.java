@@ -25,7 +25,7 @@ public class Main {
         
         Connect sample = new Connect ();
         
-        getPost = sample.getAllCommittes();
+        getPost = sample.getAllCommittees();
         
         System.out.println(getPost.get(1));
         

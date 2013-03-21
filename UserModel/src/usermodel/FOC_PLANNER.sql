@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `members` (
 -- Dumping data for table `members`
 --
 
-INSERT INTO `members` (`memberPK_id`, `fName`, `lName`, `department`, `active`, `previousPos`, `interests`, `dateActivity`) VALUES
+INSERT INTO `members` (`memberPK_id`, `fName`, `lName`, `department`, `active`, `previousPos`, `position`, `dateActivity`) VALUES
 (1, 'Laurie B.', 'Abeel', '', '', NULL, NULL, NULL),
 (2, 'Janice N.', 'Adams', '', '', NULL, NULL, NULL),
 (3, 'Kathryn K.', 'Ahearn', '', '', NULL, NULL, NULL),
