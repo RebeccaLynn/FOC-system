@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `members` (
   `department` varchar(60) NOT NULL,
   `active` varchar(3) DEFAULT NULL,
   `previousPos` varchar(50) DEFAULT NULL,
-  `interests` varchar(50) DEFAULT NULL,
+  `position` varchar(50) DEFAULT NULL,
   `dateActivity` varchar(4) DEFAULT NULL,
   PRIMARY KEY (`memberPK_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=446 ;
