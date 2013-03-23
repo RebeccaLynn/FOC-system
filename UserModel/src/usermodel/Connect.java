@@ -50,6 +50,23 @@ public class Connect {
      return resultList;
      
      }
+     public ArrayList getAllFaculty(){
+            
+        resultList.clear();
+        try{
+                conn1 = DriverManager.getConnection(dbURL, "root", null);
+                Statement stmt = conn1.createStatement();
+                ResultSet rs = stmt.executeQuery("select fName,lName from members");
+                while(rs.next()){
+                    resultList.add(rs.getString("fName")+ " " + rs.getString("lName"));
+                }    
+            }
+            catch(Exception e){
+                System.out.println(e);
+            }        
+     return resultList;
+     
+     }
      
      
      public boolean insertFaculty(String first, String last, String department, String position){
