@@ -33,19 +33,16 @@ public class Connect {
      public ArrayList getAllCommittees(){
             
             resultList.clear();
-        System.out.println("ksks");
-             try{
+            try{
                 conn1 = DriverManager.getConnection(dbURL, "root", null);
-                
                 Statement stmt = conn1.createStatement();
-                ResultSet rs = stmt.executeQuery("select * from committees");
+                ResultSet rs = stmt.executeQuery("select cName from committees ORDER BY cName");
                 while(rs.next()){
-                    
                     resultList.add(rs.getString("cName"));
                 }    
             }
             catch(Exception e){
-                System.out.println("can't show profile");
+                System.out.println("e");
             }        
      return resultList;
      
@@ -56,7 +53,7 @@ public class Connect {
         try{
                 conn1 = DriverManager.getConnection(dbURL, "root", null);
                 Statement stmt = conn1.createStatement();
-                ResultSet rs = stmt.executeQuery("select fName,lName from members");
+                ResultSet rs = stmt.executeQuery("select fName,lName from members ORDER BY lName");
                 while(rs.next()){
                     resultList.add(rs.getString("fName")+ " " + rs.getString("lName"));
                 }    

@@ -32,7 +32,7 @@ INSERT INTO `committees` (`id`, `cName`) VALUES
 (16, 'University Budget Advisory'),
 (17, 'University Curriculum'),
 (18, 'University Faculty Affairs'),
-(19, 'University Faculty Appeals and Grievance Committee'),
+(19, 'University Faculty Appeals and Grievance'),
 (20, 'University General Education'),
 (21, 'University Sabbaticals, Fellowships, & Faculty Awards'),
 (22, 'University Student Affairs & Campus Life Advisory'),
