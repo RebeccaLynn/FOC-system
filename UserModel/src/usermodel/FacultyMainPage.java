@@ -104,6 +104,11 @@ public class FacultyMainPage extends javax.swing.JFrame {
         jLabel4.setText("List of All Faculty:");
 
         jButton3.setText("Edit");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jList3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jList3.setToolTipText("");
@@ -152,7 +157,7 @@ public class FacultyMainPage extends javax.swing.JFrame {
                         .addComponent(jButton1)
                         .addGap(18, 18, 18)
                         .addComponent(jButton2)))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(127, Short.MAX_VALUE))
         );
         jInternalFrame2Layout.setVerticalGroup(
             jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,6 +195,11 @@ public class FacultyMainPage extends javax.swing.JFrame {
         jLabel10.setText("Faculty Eligible to Serve");
 
         jButton4.setText("Edit");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Remove");
 
@@ -239,7 +249,7 @@ public class FacultyMainPage extends javax.swing.JFrame {
                         .addGap(25, 25, 25)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton4)
@@ -269,11 +279,31 @@ public class FacultyMainPage extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+ * Action listener for add new faculty member button
+ * @param evt Add button clicked
+ */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        new AddPage().setVisible(true);
+//              new AddPage().setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        
+    }//GEN-LAST:event_jButton4ActionPerformed
+    /**
+     * Action listener for edit button on faculty page
+     * @param evt Edit button pressed
+     */
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        //get selected faculty member if there is one
+        try{
+            String toEdit = jList3.getSelectedValue().toString();
+            new EditForm(toEdit).setVisible(true);
+        }
+        catch(java.lang.NullPointerException e){
+            new SelectValue(this,true).setVisible(true);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
     * @param args the command line arguments
