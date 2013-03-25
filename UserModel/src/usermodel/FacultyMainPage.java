@@ -426,6 +426,11 @@ public class FacultyMainPage extends javax.swing.JFrame {
         jButton5.setText("Remove");
 
         jButton6.setText("Create Committee");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jList4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jList4.setToolTipText("");
@@ -649,6 +654,10 @@ public class FacultyMainPage extends javax.swing.JFrame {
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
            refresh();
     }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        new AddCommittee(this, true).setVisible(true);
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
     * @param args the command line arguments

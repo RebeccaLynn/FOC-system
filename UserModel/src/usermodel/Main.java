@@ -27,7 +27,7 @@ public class Main {
         
         
         
-       sample.insertCommitte("NewOne");
+       sample.insertCommittee("NewOne");
         
        
 

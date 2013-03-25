@@ -228,7 +228,7 @@ public class Connect {
     
     
     //inserts a newCommitte
-    public void insertCommitte(String cName){
+    public boolean insertCommittee(String cName){
         //check if committe is unique
         if(!checkCommittee(cName)){
             try{ 
@@ -245,15 +245,18 @@ public class Connect {
                 }
             
                 stmt.executeUpdate("insert into committees (id,cName) Values("+(getNewCommitteID()+1)+",'"+cName+"')");
+               return true;
             }
             
             catch(Exception e){
             System.out.println("Failed to insert Statement");
+            return false;
             }
         }
         //if not print message
         else{
-            System.out.println("Committie Already Exists");
+            System.out.println("Committee Already Exists");
+            return false;
         }
     }
     
