@@ -101,7 +101,24 @@ public class Connect {
      return resultList;
      
      }
-         
+       
+     public ArrayList getAllOpen(){
+            
+        resultList.clear();
+        try{
+                conn1 = DriverManager.getConnection(dbURL, "root", null);
+                Statement stmt = conn1.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT committees.cName, positions.posName FROM committees INNER JOIN positions ON committees.id = positions.positionFK_id WHERE positions.facultyFK_id IS NULL ORDER BY cName;");
+                while(rs.next()){
+                    resultList.add(rs.getString("cName")+ " " + rs.getString("posName"));
+                }    
+            }
+            catch(Exception e){
+                System.out.println(e);
+            }        
+     return resultList;
+     
+     }           
      
      public ArrayList getAllFaculty(){
             
