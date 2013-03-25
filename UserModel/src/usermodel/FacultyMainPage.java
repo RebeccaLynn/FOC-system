@@ -544,11 +544,11 @@ public class FacultyMainPage extends javax.swing.JFrame {
  * @param evt Add button clicked
  */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        //              new AddPage().setVisible(true);
+       new AddPage().setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_jButton10ActionPerformed
 
     /**
