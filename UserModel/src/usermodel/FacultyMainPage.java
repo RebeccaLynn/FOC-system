@@ -50,6 +50,15 @@ public class FacultyMainPage extends javax.swing.JFrame {
             listModel3.addElement(committee.get(i));
            }
         jList5.setModel(listModel3);
+        
+          //Populate list of current positions
+        DefaultListModel listModel4 = new DefaultListModel();  
+        ArrayList<String> current;
+        open = c.getAllCurrent();
+        for (int i = 0; i < committee.size(); i++){
+            listModel4.addElement(committee.get(i));
+           }
+        jList7.setModel(listModel4);
      
         }
     
@@ -86,6 +95,8 @@ public class FacultyMainPage extends javax.swing.JFrame {
         jLabel19 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jButton10 = new javax.swing.JButton();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
         jInternalFrame2 = new javax.swing.JInternalFrame();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -123,6 +134,12 @@ public class FacultyMainPage extends javax.swing.JFrame {
         jList6 = new javax.swing.JList();
         jButton9 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
+        jInternalFrame5 = new javax.swing.JInternalFrame();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jList7 = new javax.swing.JList();
+        jButton12 = new javax.swing.JButton();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -169,6 +186,13 @@ public class FacultyMainPage extends javax.swing.JFrame {
             }
         });
 
+        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(0, 0, 204));
+        jLabel20.setText("Current Positions Tab:");
+
+        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel21.setText("Remove selected faculty from positions");
+
         javax.swing.GroupLayout jInternalFrame4Layout = new javax.swing.GroupLayout(jInternalFrame4.getContentPane());
         jInternalFrame4.getContentPane().setLayout(jInternalFrame4Layout);
         jInternalFrame4Layout.setHorizontalGroup(
@@ -186,19 +210,23 @@ public class FacultyMainPage extends javax.swing.JFrame {
                     .addGroup(jInternalFrame4Layout.createSequentialGroup()
                         .addGap(37, 37, 37)
                         .addGroup(jInternalFrame4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jInternalFrame4Layout.createSequentialGroup()
-                                .addComponent(jLabel16)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jInternalFrame4Layout.createSequentialGroup()
-                                .addComponent(jLabel13)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel17))
                             .addComponent(jLabel18)
                             .addGroup(jInternalFrame4Layout.createSequentialGroup()
                                 .addComponent(jLabel12)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel14))))
+                                .addComponent(jLabel14))
+                            .addGroup(jInternalFrame4Layout.createSequentialGroup()
+                                .addComponent(jLabel20)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jInternalFrame4Layout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel17))
+                            .addGroup(jInternalFrame4Layout.createSequentialGroup()
+                                .addComponent(jLabel16)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jInternalFrame4Layout.createSequentialGroup()
                         .addGap(102, 102, 102)
                         .addComponent(jLabel19))
@@ -218,21 +246,25 @@ public class FacultyMainPage extends javax.swing.JFrame {
                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton10)
-                .addGap(28, 28, 28)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel18)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
                 .addGroup(jInternalFrame4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel12))
-                .addGap(30, 30, 30)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel14))
+                .addGap(28, 28, 28)
                 .addGroup(jInternalFrame4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
                     .addComponent(jLabel17))
-                .addGap(32, 32, 32)
+                .addGap(29, 29, 29)
                 .addGroup(jInternalFrame4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
                     .addComponent(jLabel15))
-                .addGap(49, 49, 49))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGroup(jInternalFrame4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel20)
+                    .addComponent(jLabel21))
+                .addGap(23, 23, 23))
         );
 
         jTabbedPane1.addTab("Home", jInternalFrame4);
@@ -450,17 +482,13 @@ public class FacultyMainPage extends javax.swing.JFrame {
                     .addGroup(jInternalFrame1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(jButton6))
-                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton5)
-                            .addComponent(jButton4)
-                            .addComponent(jButton8))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton5)
+                    .addComponent(jButton4)
+                    .addComponent(jButton8)
+                    .addComponent(jButton6))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Committee", jInternalFrame1);
@@ -522,6 +550,50 @@ public class FacultyMainPage extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("Assign Positions", jInternalFrame3);
+
+        jInternalFrame5.setVisible(true);
+
+        jList7.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane7.setViewportView(jList7);
+
+        jButton12.setText("Remove");
+
+        jLabel22.setText("Currently Assigned Positions:");
+
+        jLabel23.setText("Select specific positions to remove faculty from position");
+
+        javax.swing.GroupLayout jInternalFrame5Layout = new javax.swing.GroupLayout(jInternalFrame5.getContentPane());
+        jInternalFrame5.getContentPane().setLayout(jInternalFrame5Layout);
+        jInternalFrame5Layout.setHorizontalGroup(
+            jInternalFrame5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jInternalFrame5Layout.createSequentialGroup()
+                .addGap(59, 59, 59)
+                .addGroup(jInternalFrame5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel23)
+                    .addComponent(jLabel22)
+                    .addGroup(jInternalFrame5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jButton12)
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 629, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(60, Short.MAX_VALUE))
+        );
+        jInternalFrame5Layout.setVerticalGroup(
+            jInternalFrame5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jInternalFrame5Layout.createSequentialGroup()
+                .addComponent(jLabel23)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel22)
+                .addGap(1, 1, 1)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton12)
+                .addContainerGap(14, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Current Positions", jInternalFrame5);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -593,6 +665,7 @@ public class FacultyMainPage extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -605,6 +678,7 @@ public class FacultyMainPage extends javax.swing.JFrame {
     private javax.swing.JInternalFrame jInternalFrame2;
     private javax.swing.JInternalFrame jInternalFrame3;
     private javax.swing.JInternalFrame jInternalFrame4;
+    private javax.swing.JInternalFrame jInternalFrame5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -617,6 +691,10 @@ public class FacultyMainPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -630,6 +708,7 @@ public class FacultyMainPage extends javax.swing.JFrame {
     private javax.swing.JList jList4;
     private javax.swing.JList jList5;
     private javax.swing.JList jList6;
+    private javax.swing.JList jList7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -637,6 +716,7 @@ public class FacultyMainPage extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
