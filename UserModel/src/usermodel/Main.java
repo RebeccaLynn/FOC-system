@@ -25,10 +25,22 @@ public class Main {
         
         Connect sample = new Connect ();
         
+        
+        
+       sample.insertCommitte("NewOne");
+        
+       
+
+        
+        sample.editCommittie("Writing Intensive", "Bye Dude");
+        
         getPost = sample.getAllCommittees();
+       
+        for(int k=0; k<getPost.size(); k++)
+        {
+            System.out.println(getPost.get(k));
         
-        System.out.println(getPost.get(1));
-        
+        }
     }
    
 }

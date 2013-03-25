@@ -15,6 +15,9 @@ public class Connect {
     //hello work for me.!!!
     public static Connection conn;
     public static Connection conn1;
+    public static boolean committee;
+    public static int newCommitteID;
+    public static int committeeID;
     public ArrayList<String> resultList = new ArrayList<String>();
     public String dbURL = "jdbc:mysql://localhost:3306/FOC_DB";
   
@@ -173,6 +176,106 @@ public class Connect {
                 return false;
             }        
      }
+        
+        
+        //makes sure the name of a committee that will be added is be unique by 
+        //checking for the existence first
+        private  boolean checkCommittee (String cName){
+            try{
+                conn1 = DriverManager.getConnection(dbURL, "root", null);
+                Statement stmt = conn1.createStatement();
+                ResultSet rs = stmt.executeQuery("select cName from committees where cName = '"+cName+"'");                      
+                if(rs.first()){
+                    
+                    committee = true;                
+                }
+                else{
+                    committee = false;      
+                }  
+            }
+            catch(Exception e){
+                System.out.println("wrong statement");
+            }
+        return committee;
+    }
+    
+    public void setNewCommitteID(int id){  
+        newCommitteID = id;    
+    }
+    
+    public int getNewCommitteID(){
+        return newCommitteID;
+    }
+    
+    
+    //inserts a newCommitte
+    public void insertCommitte(String cName){
+        //check if committe is unique
+        if(!checkCommittee(cName)){
+            try{ 
+                String newCommitteID;
+            
+                conn1 = DriverManager.getConnection(dbURL, "root", null);
+                Statement stmt = conn1.createStatement();
+                ResultSet rs = stmt.executeQuery("select max(id) as ID from committees;");
+                
+                while(rs.next()){
+                    
+                    newCommitteID = rs.getString("ID");
+                    setNewCommitteID(Integer.parseInt(newCommitteID));
+                }
+            
+                stmt.executeUpdate("insert into committees (id,cName) Values("+(getNewCommitteID()+1)+",'"+cName+"')");
+            }
+            
+            catch(Exception e){
+            System.out.println("Failed to insert Statement");
+            }
+        }
+        //if not print message
+        else{
+            System.out.println("Committie Already Exists");
+        }
+    }
+    
+    
+ 
+    private void setCommitteeID(int cID)
+    {
+        committeeID = cID;
+    }  
+    
+    private int getCommitteeID()
+    {
+        return committeeID;
+    }
+ 
+    public void editCommittie(String oldName, String newName){
+        
+        if(checkCommittee(oldName)){
+            try{
+                String comID;
+                conn1 = DriverManager.getConnection(dbURL, "root", null);
+                Statement stmt = conn1.createStatement();
+                ResultSet rs = stmt.executeQuery("select id from committees where cName = '"+oldName+"'");
+                
+                while(rs.next()){
+                    comID = rs.getString("id");
+                    setCommitteeID(Integer.parseInt(comID));
+                }
+               
+                stmt.executeUpdate("UPDATE committees SET cName = \""+newName+"\" WHERE id = "+getCommitteeID()+"");
+            }
+            catch(Exception e){
+                System.out.println("CAN'T UPDATE COMMITTE");
+            }
+        }
+        else{
+            System.out.println("Committie does not exist");
+        }
+        
+    
+    }
   
      
 }
