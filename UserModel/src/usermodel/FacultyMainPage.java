@@ -52,7 +52,17 @@ public class FacultyMainPage extends javax.swing.JFrame {
         jList5.setModel(listModel3);
      
         }
- 
+    
+    public void refresh(){
+         DefaultListModel listModel = new DefaultListModel();  
+         ArrayList<String> faculty;
+         Connect c = new Connect ();
+         faculty = c.getAllFaculty();
+         for (int i = 0; i < faculty.size(); i++){
+            listModel.addElement(faculty.get(i));
+         }
+         jList3.setModel(listModel);
+    }
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -91,6 +101,7 @@ public class FacultyMainPage extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jButton7 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
         jInternalFrame1 = new javax.swing.JInternalFrame();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -283,6 +294,13 @@ public class FacultyMainPage extends javax.swing.JFrame {
             }
         });
 
+        jButton11.setText("Refresh");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jInternalFrame2Layout = new javax.swing.GroupLayout(jInternalFrame2.getContentPane());
         jInternalFrame2.getContentPane().setLayout(jInternalFrame2Layout);
         jInternalFrame2Layout.setHorizontalGroup(
@@ -311,6 +329,8 @@ public class FacultyMainPage extends javax.swing.JFrame {
                     .addGroup(jInternalFrame2Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(51, 51, 51)
+                        .addComponent(jButton11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel5)
                         .addGap(18, 18, 18)
@@ -328,7 +348,9 @@ public class FacultyMainPage extends javax.swing.JFrame {
                         .addGroup(jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jInternalFrame2Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
-                                .addGap(42, 42, 42))
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton11)
+                                .addGap(1, 1, 1))
                             .addGroup(jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel4)
                                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -545,11 +567,16 @@ public class FacultyMainPage extends javax.swing.JFrame {
  */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
        new AddPage().setVisible(true);
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
        
     }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+           refresh();
+    }//GEN-LAST:event_jButton11ActionPerformed
 
     /**
     * @param args the command line arguments
@@ -565,6 +592,7 @@ public class FacultyMainPage extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
