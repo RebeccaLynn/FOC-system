@@ -18,7 +18,8 @@ import java.util.ArrayList;
  * @author Rebecca
  */
 public class EditForm extends javax.swing.JFrame {
-
+    public String key;
+    public Connect c = new Connect ();
     /** Creates new form EditForm */
     public EditForm(String faculty) {
         initComponents();
@@ -29,7 +30,6 @@ public class EditForm extends javax.swing.JFrame {
         ArrayList<String> info;
         info = c.getAFaculty(first,last);
         int len =  info.size();
-        System.out.println(len);
         jTextField1.setText(info.get(0));
         jTextField2.setText(info.get(1));
         jTextField3.setText(info.get(2));
@@ -41,11 +41,11 @@ public class EditForm extends javax.swing.JFrame {
         if(info.get(3).equals("Yes")){
             jCheckBox1.setSelected (true); 
         }
-       if (len > 9){
+       if (len > 10){
             jLabel9.setText(jLabel9.getText() + " " + info.get(9));
             jLabel6.setText(jLabel6.getText() + " " + info.get(10));
        }
-            
+       key = info.get(len-1);     
         
                 
     }
@@ -108,8 +108,18 @@ public class EditForm extends javax.swing.JFrame {
         });
 
         jButton1.setText("Save");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Cancel");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jCheckBox1.setText("Currently Active");
 
@@ -213,7 +223,7 @@ public class EditForm extends javax.swing.JFrame {
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -240,6 +250,43 @@ public class EditForm extends javax.swing.JFrame {
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
+    /**
+     * Action listener for Save button
+     * @param evt Save button is clicked
+     */
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String query = "fName = '" + jTextField1.getText() +"',";
+        query = query + "lName = '" + jTextField2.getText()+ "',";
+        query = query + "department = '" + jTextField3.getText()+ "',";
+        query = query + "email = '" + jTextField4.getText()+ "',";
+        query = query + "phone = '" + jTextField5.getText()+ "',";
+        query = query + "position = '" + jTextField6.getText()+ "',";
+        query = query + "previousPos = '" + jTextField7.getText()+ "',";
+        query = query + "dateActivity = '" + jTextField8.getText()+ "',";   
+        if(jCheckBox1.isSelected()){
+           query = query + "dateActivity = 'Yes'";   
+       }
+        else{
+           query = query + "dateActivity = 'No'";   
+        }
+        query = "UPDATE members SET " + query + "WHERE members.memberPK_id = " + key;
+        boolean worked = c.editFaculty(query);
+        if (worked){
+           new QuerySuccess(this,true).setVisible(true);
+           this.dispose();
+        }
+        else{
+           new QueryFailed(this,true).setVisible(true);
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+    /**
+     * Action listener for cancel button
+     * @param evt cancel button is clicked
+     */
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
     * @param args the command line arguments

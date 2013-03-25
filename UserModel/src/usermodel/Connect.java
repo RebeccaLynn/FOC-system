@@ -72,6 +72,7 @@ public class Connect {
                    resultList.add(rs.getString("dateActivity"));
                    resultList.add(rs.getString("positions.posName"));
                    resultList.add(rs.getString("committees.cName"));
+                   resultList.add(rs.getString("memberPK_id"));
                    finish = true;
              }
               if (!rs.next() && !finish){
@@ -89,6 +90,7 @@ public class Connect {
                         resultList.add(rs.getString("phone"));
                         resultList.add(rs.getString("email"));
                         resultList.add(rs.getString("dateActivity"));
+                        resultList.add(rs.getString("memberPK_id"));
                      }
                 }
               
@@ -130,6 +132,21 @@ public class Connect {
                 statement.setString(4, position);
                 statement.setString(5,email);
                 statement.setString(6,phone);
+                statement.execute();
+               return true;          
+                
+       }      
+       catch(Exception e){
+                System.out.println(e);
+                return false;
+            }        
+     }
+     
+        public boolean editFaculty(String query){
+       try{
+                conn1 = DriverManager.getConnection(dbURL, "root", null);
+                System.out.println(query);
+                PreparedStatement statement = conn1.prepareStatement(query);
                 statement.execute();
                return true;          
                 
