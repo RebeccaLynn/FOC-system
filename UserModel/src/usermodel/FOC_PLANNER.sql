@@ -36,8 +36,7 @@ INSERT INTO `committees` (`id`, `cName`) VALUES
 (20, 'University General Education'),
 (21, 'University Sabbaticals, Fellowships, & Faculty Awards'),
 (22, 'University Student Affairs & Campus Life Advisory'),
-(23, 'Writing Intensive'),
-(24, 'Yikes');
+(23, 'Writing Intensive');
 
 -- --------------------------------------------------------
 

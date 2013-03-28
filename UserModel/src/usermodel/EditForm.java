@@ -264,10 +264,10 @@ public class EditForm extends javax.swing.JFrame {
         query = query + "previousPos = '" + jTextField7.getText()+ "',";
         query = query + "dateActivity = '" + jTextField8.getText()+ "',";   
         if(jCheckBox1.isSelected()){
-           query = query + "dateActivity = 'Yes'";   
+           query = query + "active = 'Yes'";   
        }
         else{
-           query = query + "dateActivity = 'No'";   
+           query = query + "active = 'No'";   
         }
         query = "UPDATE members SET " + query + "WHERE members.memberPK_id = " + key;
         boolean worked = c.editFaculty(query);
