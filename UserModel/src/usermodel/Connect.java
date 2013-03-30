@@ -232,7 +232,7 @@ public class Connect {
                 return true;
             }
             catch(Exception e){
-                System.out.println("Removal Failed");
+                System.out.println(e);
                 return false;
             }
             
@@ -351,15 +351,18 @@ public class Connect {
      */
     public boolean removeCommittee(String name){
         if(checkCommittee(name)){
-            int link;
+            int link = -1;
             try{
+                System.out.println(name);
                 conn1=DriverManager.getConnection(dbURL,"root",null); // connect to the database
-                //Find the requested committe's id
-                Statement findStmnt=conn1.createStatement();
-                ResultSet findID= findStmnt.executeQuery("Select id from committees where cNAme='"+name+"'");
+                //Find the requested committee's id
+                Statement findStmnt=conn1.createStatement( ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                ResultSet findID= findStmnt.executeQuery("Select id from committees where cName='"+name+"'");
                 //The "link" between the tables:
-                link=findID.getInt("id");
-                //Find the positions related to the desired committee
+                if(findID.next()){
+                    link=findID.getInt("id");
+                }
+               //Find the positions related to the desired committee
                 Statement findPositions=conn1.createStatement();
                 ResultSet positions=findPositions.executeQuery("Select positionPK_id from positions where positionFK_id="+link);
                 //iterate through the returned table and remove the related rose
@@ -371,7 +374,7 @@ public class Connect {
                 return true;
             }
             catch(Exception x){
-                System.out.println("Removal Failed");
+                System.out.println(x);
                 x.printStackTrace();
                 return false;
             }

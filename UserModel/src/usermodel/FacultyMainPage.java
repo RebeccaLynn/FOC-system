@@ -269,6 +269,11 @@ public class FacultyMainPage extends javax.swing.JFrame {
         jTabbedPane1.addTab("Home", jInternalFrame4);
 
         jButton1.setText("Remove");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Add");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -408,6 +413,11 @@ public class FacultyMainPage extends javax.swing.JFrame {
         });
 
         jButton5.setText("Remove");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setText("Create Committee");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -647,6 +657,53 @@ public class FacultyMainPage extends javax.swing.JFrame {
         new AddPage().setVisible(true);
 
     }//GEN-LAST:event_jButton2ActionPerformed
+/**
+ * Action listener for removing faculty member button
+ * @param evt Remove button clicked
+ */
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try{
+            String toRemove = jList3.getSelectedValue().toString();
+            Connect c = new Connect ();
+            int lastSpace = toRemove.lastIndexOf(" ");
+            String first = toRemove.substring(0,lastSpace).trim();
+            String last = toRemove.substring(lastSpace, toRemove.length()).trim();
+             c.removeFaculty(first, last);
+            
+        }
+        catch(java.lang.NullPointerException e){
+            new SelectValue(this,true).setVisible(true);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+/**
+ * Action listener for removing committee button
+ * @param evt Remove button clicked
+ */
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+         try{
+            String toRemove = jList4.getSelectedValue().toString();
+            //new RemovalPrompt(this,true,toRemove).setVisible(true);
+            DefaultListModel listModel2 = new DefaultListModel();  
+                Connect c = new Connect ();
+             boolean success = c.removeCommittee(toRemove);
+             if (success){
+                new QuerySuccess(this,true).setVisible(true);
+                ArrayList<String> committee;
+                committee = c.getAllCommittees();
+                for (int i = 0; i < committee.size(); i++){
+                       listModel2.addElement(committee.get(i));
+                }
+                jList4.setModel(listModel2);
+             }
+             else{
+                  new QueryFailed(this,true).setVisible(true);
+             }
+       }
+        //if no committee is selected
+        catch(java.lang.NullPointerException e){
+            new SelectCommittee(this,true).setVisible(true);
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
     * @param args the command line arguments

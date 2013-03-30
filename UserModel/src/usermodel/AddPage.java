@@ -220,6 +220,7 @@ public class AddPage extends javax.swing.JFrame {
            jTextField4.setText("");
            jTextField5.setText("");
            jTextField6.setText("");
+           this.dispose();
         }
         else{
             new QueryFailed(this,true).setVisible(true);
