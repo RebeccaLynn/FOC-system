@@ -209,13 +209,16 @@ public class Connect {
          */
         public boolean removeFaculty (String fname, String lname){
             try{
-                int link;
+                int link=-1;
                 conn1=DriverManager.getConnection(dbURL,"root",null); // connect to the database
                 //Find the requested faculty member's id
-                Statement findStmnt=conn1.createStatement();
+                Statement findStmnt=conn1.createStatement( ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
                 ResultSet findID= findStmnt.executeQuery("Select memberPK_id from members where fName='"+fname+"' AND lName='"+lname+"'");
                 //The "link" between the tables:
-                link=findID.getInt("memberPK_id");
+                if(findID.next()){
+                    link=findID.getInt("memberPK_id");
+                }
                 //Find the positions related to the desired faculty member
                 Statement findPositions=conn1.createStatement();
                 ResultSet positions=findPositions.executeQuery("Select positionPK_id from positions where facultyFK_id="+link);
@@ -224,9 +227,8 @@ public class Connect {
                     //Set the facultyFK_id to NULL
                     int id=positions.getInt("positionPK_id");
                     Statement updatePostion=conn1.createStatement();
-                    ResultSet updated=updatePostion.executeQuery("UPDATE positions SET facultyFK_id='NULL' where positionPK_id="+id);
-                    updated.updateRow();
-                }
+                    updatePostion.executeUpdate("UPDATE positions SET facultyFK_id=NULL where positionPK_id="+id);
+                 }
                 //Remove the previously selected faculty member:
                 findID.deleteRow();
                 return true;

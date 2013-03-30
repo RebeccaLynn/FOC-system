@@ -668,7 +668,14 @@ public class FacultyMainPage extends javax.swing.JFrame {
             int lastSpace = toRemove.lastIndexOf(" ");
             String first = toRemove.substring(0,lastSpace).trim();
             String last = toRemove.substring(lastSpace, toRemove.length()).trim();
-             c.removeFaculty(first, last);
+            boolean success = c.removeFaculty(first, last);
+            if (success){
+                new QuerySuccess(this,true).setVisible(true);
+                this.refresh();
+             }
+             else{
+                  new QueryFailed(this,true).setVisible(true);
+             }
             
         }
         catch(java.lang.NullPointerException e){
