@@ -11,8 +11,6 @@ import java.util.ArrayList;
  * @author KBrown
  */
 public class Connect {
-    //hellow now
-    //hello work for me.!!!
     public static Connection conn;
     public static Connection conn1;
     public static boolean committee;
@@ -37,7 +35,10 @@ public class Connect {
         }
     } 
 
-        
+     /**
+      * 
+      * @return list of all committees
+      */
      public ArrayList getAllCommittees(){
             
             resultList.clear();
@@ -56,6 +57,12 @@ public class Connect {
      
      }
      
+     /**
+      * Gets information about faculty to populate EditForm
+      * @param first first name of faculty
+      * @param last last name of faculty
+      * @return arraylist of all information
+      */
        public ArrayList getAFaculty(String first, String last){
             
             resultList.clear();
@@ -109,7 +116,11 @@ public class Connect {
      return resultList;
      
      }
-       
+      
+       /**
+        * 
+        * @return list of all open positions on all committees
+        */
      public ArrayList getAllOpen(){
             
         resultList.clear();
@@ -128,6 +139,10 @@ public class Connect {
      
      }           
      
+     /**
+      *  
+      * @return list of filled positions and faculty assigned to them
+      */
       public ArrayList getAllCurrent(){
             
         resultList.clear();
@@ -147,6 +162,10 @@ public class Connect {
      
      }           
      
+      /**
+       * 
+       * @return list of all faculty
+       */
      public ArrayList getAllFaculty(){
             
         resultList.clear();
@@ -165,7 +184,16 @@ public class Connect {
      
      }
      
-     
+     /**
+      * Add new faculty member 
+      * @param first
+      * @param last
+      * @param department
+      * @param position
+      * @param email
+      * @param phone
+      * @return  true if insert successful, else false
+      */
      public boolean insertFaculty(String first, String last, String department, String position, String email, String phone){
        try{
                 conn1 = DriverManager.getConnection(dbURL, "root", null);
@@ -186,7 +214,12 @@ public class Connect {
             }        
      }
      
-        public boolean editFaculty(String query){
+     /**
+      * Executes query to edit faculty 
+      * @param query 
+      * @return true if edit successful
+      */
+       public boolean editFaculty(String query){
        try{
                 conn1 = DriverManager.getConnection(dbURL, "root", null);
                 System.out.println(query);
@@ -320,8 +353,7 @@ public class Connect {
   * @param oldName, old committee name
   * @param newName, new committee name
   */
-    
-    public void editCommittee(String oldName, String newName){
+   public void editCommittee(String oldName, String newName){
         
         if(checkCommittee(oldName)){
             try{
@@ -342,7 +374,7 @@ public class Connect {
             }
         }
         else{
-            System.out.println("Committie does not exist");
+            System.out.println("Committee does not exist");
         }
     }
 
@@ -408,6 +440,22 @@ public class Connect {
                 System.out.println("Postion does not exits");
             }
         return position;
+    }
+    
+     public ArrayList getCommitteePosition(String cName){
+        try{
+            resultList.clear();
+            conn1 = DriverManager.getConnection(dbURL, "root", null);
+            Statement stmt = conn1.createStatement();
+            ResultSet rs = stmt.executeQuery("select posName,positionPK_id from positions INNER JOIN committees ON committees.id = positions.positionFK_id where committees.cName = '"+cName+"'");                      
+            while(rs.next()){
+                    resultList.add(rs.getString("positionPK_id")+ ": " + rs.getString("posName"));
+                }    
+            }
+            catch(Exception e){
+                System.out.println(e);
+            }
+        return resultList;
     }
     
     

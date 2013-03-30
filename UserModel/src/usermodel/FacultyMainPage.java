@@ -25,7 +25,15 @@ public class FacultyMainPage extends javax.swing.JFrame {
     public FacultyMainPage() {
          initComponents();
          //Populate list of all faculty
-         DefaultListModel listModel = new DefaultListModel();  
+         this.refresh();
+     
+        }
+    
+    /**
+     * refreshes all lists with current info
+     */
+    public void refresh(){
+        DefaultListModel listModel = new DefaultListModel();  
          ArrayList<String> faculty;
          Connect c = new Connect ();
          faculty = c.getAllFaculty();
@@ -60,17 +68,6 @@ public class FacultyMainPage extends javax.swing.JFrame {
            }
         jList7.setModel(listModel4);
      
-        }
-    
-    public void refresh(){
-         DefaultListModel listModel = new DefaultListModel();  
-         ArrayList<String> faculty;
-         Connect c = new Connect ();
-         faculty = c.getAllFaculty();
-         for (int i = 0; i < faculty.size(); i++){
-            listModel.addElement(faculty.get(i));
-         }
-         jList3.setModel(listModel);
     }
 
     /** This method is called from within the constructor to
@@ -605,9 +602,22 @@ public class FacultyMainPage extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+ * Action listener for edit committee button
+ * @param evt Edit button clicked on committee tab
+ */
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-
+     
+           try{
+            String toEdit = jList4.getSelectedValue().toString();
+            new EditCommittee(this,true,toEdit).setVisible(true);
+             this.refresh();
+        
+       }
+        //if no committee is selected
+        catch(java.lang.NullPointerException e){
+            new SelectCommittee(this,true).setVisible(true);
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
@@ -616,18 +626,11 @@ public class FacultyMainPage extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         new AddCommittee(this, true).setVisible(true);
-        DefaultListModel listModel2 = new DefaultListModel();  
-        ArrayList<String> committee;
-        Connect c = new Connect ();
-        committee = c.getAllCommittees();
-        for (int i = 0; i < committee.size(); i++){
-            listModel2.addElement(committee.get(i));
-           }
-        jList4.setModel(listModel2);
+        this.refresh();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        refresh();
+       this.refresh();
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -643,6 +646,7 @@ public class FacultyMainPage extends javax.swing.JFrame {
         try{
             String toEdit = jList3.getSelectedValue().toString();
             new EditForm(toEdit).setVisible(true);
+            this.refresh();
         }
         catch(java.lang.NullPointerException e){
             new SelectValue(this,true).setVisible(true);
@@ -655,6 +659,7 @@ public class FacultyMainPage extends javax.swing.JFrame {
  */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         new AddPage().setVisible(true);
+        this.refresh();
 
     }//GEN-LAST:event_jButton2ActionPerformed
 /**
@@ -690,17 +695,12 @@ public class FacultyMainPage extends javax.swing.JFrame {
          try{
             String toRemove = jList4.getSelectedValue().toString();
             //new RemovalPrompt(this,true,toRemove).setVisible(true);
-            DefaultListModel listModel2 = new DefaultListModel();  
+           
                 Connect c = new Connect ();
              boolean success = c.removeCommittee(toRemove);
              if (success){
                 new QuerySuccess(this,true).setVisible(true);
-                ArrayList<String> committee;
-                committee = c.getAllCommittees();
-                for (int i = 0; i < committee.size(); i++){
-                       listModel2.addElement(committee.get(i));
-                }
-                jList4.setModel(listModel2);
+               this.refresh();
              }
              else{
                   new QueryFailed(this,true).setVisible(true);
