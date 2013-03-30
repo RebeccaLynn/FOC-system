@@ -16,8 +16,13 @@ public class Connect {
     public static Connection conn;
     public static Connection conn1;
     public static boolean committee;
+    public static boolean position;
+    public static boolean resultsVal;
     public static int newCommitteID;
+    public static int positionID;
     public static int committeeID;
+    public static int pID;
+    public static int mID;
     public ArrayList<String> resultList = new ArrayList<String>();
     public String dbURL = "jdbc:mysql://localhost:3306/FOC_DB";
   
@@ -271,8 +276,13 @@ public class Connect {
     {
         return committeeID;
     }
- 
-    public void editCommittie(String oldName, String newName){
+ /**
+  * 
+  * @param oldName, old committee name
+  * @param newName, new committee name
+  */
+    
+    public void editCommittee(String oldName, String newName){
         
         if(checkCommittee(oldName)){
             try{
@@ -289,14 +299,130 @@ public class Connect {
                 stmt.executeUpdate("UPDATE committees SET cName = \""+newName+"\" WHERE id = "+getCommitteeID()+"");
             }
             catch(Exception e){
-                System.out.println("CAN'T UPDATE COMMITTE");
+                System.out.println("CAN'T UPDATE COMMITTEE");
             }
         }
         else{
             System.out.println("Committie does not exist");
         }
-        
+    }
     
+
+    /**checks to see if a position exists or not
+     * @return true, if the position exists
+     * @return false, if the position does not exists
+    */
+    public boolean checkPosition(String pName){
+        try{
+            conn1 = DriverManager.getConnection(dbURL, "root", null);
+            Statement stmt = conn1.createStatement();
+            ResultSet rs = stmt.executeQuery("select posName from positions where posName = '"+pName+"'");                      
+            if(rs.first()){
+                position = true;                
+                }
+                else{
+                    position = false;      
+                }  
+            }
+            catch(Exception e){
+                System.out.println("Postion does not exits");
+            }
+        return position;
+    }
+    
+    
+    /**
+     * mutator for for setting a position
+     * @param pID 
+     */
+    public void setPositionID(int pID){
+        positionID = pID;
+    }
+    
+    /**
+     * accessor for position
+     * @return current position Id
+     */
+    public int getPositionID(){
+        return positionID;
+    }
+    
+    
+    /**allows the client to insert a new position
+     * 
+     * @param posName
+     * @return true, if position was added
+     * @return false, if position was not added
+     */
+    public boolean insertPosition(String posName){
+        try{ 
+            String newPositionID;
+            
+            conn1 = DriverManager.getConnection(dbURL, "root", null);
+            Statement stmt = conn1.createStatement();
+            ResultSet rs = stmt.executeQuery("select max(positionPK_id) as ID from positions;");
+                
+            while(rs.next()){
+                newPositionID = rs.getString("ID");
+                setPositionID(Integer.parseInt(newPositionID));
+                }
+            
+            stmt.executeUpdate("insert into positions (positionPK_id,posName) Values("+(getPositionID()+1)+",'"+posName+"')");
+            position = true;
+            }
+            
+            catch(Exception e){
+                System.out.println("Failed to add new Position");
+                position = false;
+            }
+        return position;
+    }
+    /**
+     * 
+     * @param cName, committee name
+     * @param firstName, member first name
+     * @param lastName, member last name
+     * @param pName, name of position
+     * @return, true if position was removed, else it's false
+     */
+    public boolean removePositon(String cName, String firstName, String lastName,
+            String pName){
+        try{ 
+
+            conn1 = DriverManager.getConnection(dbURL, "root", null);
+            Statement stmt = conn1.createStatement();
+            
+            
+            //get the committie pk id
+            ResultSet rs = stmt.executeQuery("select id from committees where cName = '"+cName+"'");
+            while(rs.next()){
+                String posID = rs.getString("id");
+                pID = Integer.parseInt(posID);
+            }
+
+            //get the falculty pk id
+            rs = stmt.executeQuery("select memberPK_id from members where fName = '"+firstName+"' AND lName = '"+lastName+"'");
+            while(rs.next()){
+                String memberID = rs.getString("memberPK_id");
+                mID = Integer.parseInt(memberID);
+            }
+            
+            System.out.println("pID: "+pID+" fID: "+mID);
+            if(pID <= 0 || mID <=0){
+                resultsVal = false;
+            }else{
+                stmt.executeUpdate("Delete from positions where positionFK_id = '"+pID+"' AND facultyFK_id = '"+mID+"'"
+                   + "AND posName = '"+pName+"'");
+                resultsVal = true; 
+            }
+            
+    
+        }catch(Exception e){
+        
+            System.out.println("Couldn't Remove Pos");
+        }
+
+        return resultsVal;
     }
   
      

@@ -27,20 +27,22 @@ public class Main {
         
         
         
-       sample.insertCommittee("NewOne");
+       //sample.insertCommittee("NewOne");
         
        
 
         
-        sample.editCommittie("Writing Intensive", "Bye Dude");
+        //sample.editCommittee("Writing Intensive", "Bye Dude");
         
-        getPost = sample.getAllCommittees();
+        //getPost = sample.getAllCommittees();
        
         for(int k=0; k<getPost.size(); k++)
         {
-            System.out.println(getPost.get(k));
+         //   System.out.println(getPost.get(k));
         
         }
+        
+        System.out.println(sample.removePositon("Faculty Senate", "Charles M.", "Sharpless", "Department Senator Chemistry"));
     }
    
 }

@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `members` (
   `position` varchar(50) DEFAULT NULL,
   `phone` varchar(8) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `dateActivity` varchar(4) DEFAULT NULL,
+  `dateActivity` int(4) DEFAULT NULL,
   PRIMARY KEY (`memberPK_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=461 ;
 
@@ -683,6 +683,8 @@ INSERT INTO `positions` (`positionPK_id`, `positionFK_id`, `facultyFK_id`, `posN
 (153, 23, NULL, '2 year member', NULL),
 (154, 23, NULL, '2 year member', NULL),
 (155, 23, NULL, '1 year member', NULL);
+
+--Delete from positions where positionFK_id = 155 AND facultyFK_id AND posName = "Department Senator Computer Science";
 
 --
 -- Constraints for dumped tables
