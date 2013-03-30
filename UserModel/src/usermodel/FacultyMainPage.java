@@ -54,17 +54,17 @@ public class FacultyMainPage extends javax.swing.JFrame {
         DefaultListModel listModel3 = new DefaultListModel();  
         ArrayList<String> open;
         open = c.getAllOpen();
-        for (int i = 0; i < committee.size(); i++){
-            listModel3.addElement(committee.get(i));
+        for (int i = 0; i < open.size(); i++){
+            listModel3.addElement(open.get(i));
            }
         jList5.setModel(listModel3);
         
           //Populate list of current positions
         DefaultListModel listModel4 = new DefaultListModel();  
         ArrayList<String> current;
-        open = c.getAllCurrent();
-        for (int i = 0; i < committee.size(); i++){
-            listModel4.addElement(committee.get(i));
+        current = c.getAllCurrent();
+        for (int i = 0; i < current.size(); i++){
+            listModel4.addElement(current.get(i));
            }
         jList7.setModel(listModel4);
      

@@ -6,6 +6,7 @@ package usermodel;
 import com.mysql.jdbc.Driver;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 /**
  *
  * @author KBrown
@@ -482,12 +483,19 @@ public class Connect {
      * @return true, if position was added
      * @return false, if position was not added
      */
-    public boolean insertPosition(String posName){
+    public boolean insertPosition(String cName, String posName){
         try{ 
             String newPositionID;
-            
+            String commID = "-1";
             conn1 = DriverManager.getConnection(dbURL, "root", null);
             Statement stmt = conn1.createStatement();
+            
+            ResultSet r1 = stmt.executeQuery("select id from committees where committees.cName = '"+cName+"'");                      
+            while(r1.next()){
+                    commID = r1.getString("id");
+                }    
+      
+            
             ResultSet rs = stmt.executeQuery("select max(positionPK_id) as ID from positions;");
                 
             while(rs.next()){
@@ -495,7 +503,7 @@ public class Connect {
                 setPositionID(Integer.parseInt(newPositionID));
                 }
             
-            stmt.executeUpdate("insert into positions (positionPK_id,posName) Values("+(getPositionID()+1)+",'"+posName+"')");
+            stmt.executeUpdate("insert into positions (positionPK_id,posName,positionFK_id) Values("+(getPositionID()+1)+",'"+posName+"','"+ commID +"')");
             position = true;
             }
             
@@ -513,7 +521,7 @@ public class Connect {
      * @param pName, name of position
      * @return, true if position was removed, else it's false
      */
-    public boolean removePositon(String cName, String firstName, String lastName,
+    public boolean removePosition(String cName, String firstName, String lastName,
             String pName){
         try{ 
 
@@ -551,6 +559,37 @@ public class Connect {
         }
 
         return resultsVal;
+    }
+    
+     public void removePosition2(String id){
+        try{ 
+
+            conn1 = DriverManager.getConnection(dbURL, "root", null);
+            Statement stmt = conn1.createStatement();
+            Statement stmt1 = conn1.createStatement();
+            
+            
+            //get the faculty pk id if one
+         
+            ResultSet rs = stmt.executeQuery("select memberPK_id from members INNER JOIN positions ON positions.facultyFK_id = members.memberPK_id WHERE positions.positionPK_id = " + id);
+            while(rs.next()){
+                String memberID = rs.getString("memberPK_id");
+                mID = Integer.parseInt(memberID);
+                Calendar now = Calendar.getInstance();   // This gets the current date and time.
+                int year = now.get(Calendar.YEAR);                 // This returns the year as an int.
+                //update faculty assigned to position to current year for last date served
+                System.out.println("UPDATE members SET dateActivity =" + year + " WHERE memberPK_id = " + memberID);
+                stmt1.executeUpdate("UPDATE members SET dateActivity =" + year + " WHERE memberPK_id = " + memberID);
+            }
+           
+            stmt1.executeUpdate("Delete from positions where positionPK_id = "+id);
+    
+        }catch(Exception e){
+        
+            System.out.println(e);
+        }
+
+       
     }
   
      
