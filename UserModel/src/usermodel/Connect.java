@@ -218,10 +218,14 @@ public class Connect {
                 link=findID.getInt("memberPK_id");
                 //Find the positions related to the desired faculty member
                 Statement findPositions=conn1.createStatement();
-                ResultSet positions=findPositions.executeQuery("Select posistionPK_id from positions where facultyFK_id="+link);
+                ResultSet positions=findPositions.executeQuery("Select positionPK_id from positions where facultyFK_id="+link);
                 //iterate through the returned table and remove the related row(s)
                 while (positions.next()){
-                    positions.deleteRow(); //This is a java function that remove the data from both the resulting and underlying table (http://docs.oracle.com/javase/7/docs/api/java/sql/ResultSet.html)
+                    //Set the facultyFK_id to NULL
+                    int id=positions.getInt("positionPK_id");
+                    Statement updatePostion=conn1.createStatement();
+                    ResultSet updated=updatePostion.executeQuery("UPDATE positions SET facultyFK_id='NULL' where positionPK_id="+id);
+                    updated.updateRow();
                 }
                 //Remove the previously selected faculty member:
                 findID.deleteRow();
@@ -357,7 +361,7 @@ public class Connect {
                 link=findID.getInt("id");
                 //Find the positions related to the desired committee
                 Statement findPositions=conn1.createStatement();
-                ResultSet positions=findPositions.executeQuery("Select posistionPK_id from positions where positionFK_id="+link);
+                ResultSet positions=findPositions.executeQuery("Select positionPK_id from positions where positionFK_id="+link);
                 //iterate through the returned table and remove the related rose
                 while (positions.next()){
                     positions.deleteRow(); //This is a java function that remove the data from both the resulting and underlying table (http://docs.oracle.com/javase/7/docs/api/java/sql/ResultSet.html)
