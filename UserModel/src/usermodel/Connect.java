@@ -200,6 +200,39 @@ public class Connect {
                 return false;
             }        
      }
+
+        /**
+         * This function remove a faculty member from the system including the positions that they held.
+         * @param fname the faculty member's first name
+         * @param lname the faculty member's last name
+         * @return if true, then successful, else failed
+         */
+        public boolean removeFaculty (String fname, String lname){
+            try{
+                int link;
+                conn1=DriverManager.getConnection(dbURL,"root",null); // connect to the database
+                //Find the requested faculty member's id
+                Statement findStmnt=conn1.createStatement();
+                ResultSet findID= findStmnt.executeQuery("Select memberPK_id from members where fName='"+fname+"' AND lName='"+lname+"'");
+                //The "link" between the tables:
+                link=findID.getInt("memberPK_id");
+                //Find the positions related to the desired faculty member
+                Statement findPositions=conn1.createStatement();
+                ResultSet positions=findPositions.executeQuery("Select posistionPK_id from positions where facultyFK_id="+link);
+                //iterate through the returned table and remove the related row(s)
+                while (positions.next()){
+                    positions.deleteRow(); //This is a java function that remove the data from both the resulting and underlying table (http://docs.oracle.com/javase/7/docs/api/java/sql/ResultSet.html)
+                }
+                //Remove the previously selected faculty member:
+                findID.deleteRow();
+                return true;
+            }
+            catch(Exception e){
+                System.out.println("Removal Failed");
+                return false;
+            }
+            
+        }
         
         
         //makes sure the name of a committee that will be added is be unique by 
@@ -304,6 +337,44 @@ public class Connect {
         }
         else{
             System.out.println("Committie does not exist");
+        }
+    }
+
+    /**Removes a committee from the system including the positions table
+     * @pram name, the name of the selected committee
+     * @return true, the removal was successful.
+     * @return false, the removal failed because the information could not be found.
+     */
+    public boolean removeCommittee(String name){
+        if(checkCommittee(name)){
+            int link;
+            try{
+                conn1=DriverManager.getConnection(dbURL,"root",null); // connect to the database
+                //Find the requested committe's id
+                Statement findStmnt=conn1.createStatement();
+                ResultSet findID= findStmnt.executeQuery("Select id from committees where cNAme='"+name+"'");
+                //The "link" between the tables:
+                link=findID.getInt("id");
+                //Find the positions related to the desired committee
+                Statement findPositions=conn1.createStatement();
+                ResultSet positions=findPositions.executeQuery("Select posistionPK_id from positions where positionFK_id="+link);
+                //iterate through the returned table and remove the related rose
+                while (positions.next()){
+                    positions.deleteRow(); //This is a java function that remove the data from both the resulting and underlying table (http://docs.oracle.com/javase/7/docs/api/java/sql/ResultSet.html)
+                }
+                //Remove the previously selected committee:
+                findID.deleteRow();
+                return true;
+            }
+            catch(Exception x){
+                System.out.println("Removal Failed");
+                x.printStackTrace();
+                return false;
+            }
+        }
+        else{
+            System.out.println("Committee was not found");
+            return false;
         }
     }
     
