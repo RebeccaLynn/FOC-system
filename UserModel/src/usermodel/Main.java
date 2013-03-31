@@ -29,7 +29,7 @@ public class Main {
         
        //sample.insertCommittee("NewOne");
         
-       
+       sample.upDate();
 
         
         //sample.editCommittee("Writing Intensive", "Bye Dude");
@@ -42,7 +42,7 @@ public class Main {
         
         }
         
-        System.out.println(sample.removePositon("Faculty Senate", "Charles M.", "Sharpless", "Department Senator Chemistry"));
+       // System.out.println(sample.removePosition("Faculty Senate", "Charles M.", "Sharpless", "Department Senator Chemistry"));
     }
    
 }

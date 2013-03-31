@@ -67,6 +67,15 @@ public class FacultyMainPage extends javax.swing.JFrame {
             listModel4.addElement(current.get(i));
            }
         jList7.setModel(listModel4);
+        
+           //Populate list of eligible faculty
+        DefaultListModel listModel5 = new DefaultListModel();  
+        ArrayList<String> eligible;
+        eligible = c.getEligibleFaculty();
+        for (int i = 0; i < eligible.size(); i++){
+            listModel5.addElement(eligible.get(i));
+           }
+        jList6.setModel(listModel5);
      
     }
 
@@ -511,19 +520,20 @@ public class FacultyMainPage extends javax.swing.JFrame {
             .addGroup(jInternalFrame3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jInternalFrame3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8)
                     .addGroup(jInternalFrame3Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addGap(0, 217, Short.MAX_VALUE))
+                    .addGroup(jInternalFrame3Layout.createSequentialGroup()
+                        .addGroup(jInternalFrame3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton9)
+                            .addGroup(jInternalFrame3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel7)
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jInternalFrame3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jInternalFrame3Layout.createSequentialGroup()
-                                .addGap(366, 366, 366)
-                                .addComponent(jButton9))
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))
-                        .addGap(52, 52, 52)
-                        .addGroup(jInternalFrame3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(91, Short.MAX_VALUE))
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))))
+                .addContainerGap())
         );
         jInternalFrame3Layout.setVerticalGroup(
             jInternalFrame3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

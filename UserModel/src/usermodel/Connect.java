@@ -35,7 +35,24 @@ public class Connect {
             throw new RuntimeException("Can't register driver!");
         }
     } 
-
+        
+    
+     public void upDate(){
+            
+            resultList.clear();
+            try{
+                conn1 = DriverManager.getConnection(dbURL, "root", null);
+                Statement stmt = conn1.createStatement();
+                stmt.executeUpdate("UPDATE members SET active = 'Yes'");
+                
+            }
+            catch(Exception e){
+                System.out.println(e);
+            }        
+    
+     
+     }
+     
      /**
       * 
       * @return list of all committees
@@ -128,9 +145,9 @@ public class Connect {
         try{
                 conn1 = DriverManager.getConnection(dbURL, "root", null);
                 Statement stmt = conn1.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT committees.cName, positions.posName FROM committees INNER JOIN positions ON committees.id = positions.positionFK_id WHERE positions.facultyFK_id IS NULL ORDER BY cName;");
+                ResultSet rs = stmt.executeQuery("SELECT positions.positionPK_id, committees.cName, positions.posName FROM committees INNER JOIN positions ON committees.id = positions.positionFK_id WHERE positions.facultyFK_id IS NULL ORDER BY cName;");
                 while(rs.next()){
-                    resultList.add(rs.getString("cName")+ " " + rs.getString("posName"));
+                    resultList.add(rs.getString("positionPK_id") + ": " + rs.getString("cName")+ " " + rs.getString("posName"));
                 }    
             }
             catch(Exception e){
@@ -176,6 +193,31 @@ public class Connect {
                 ResultSet rs = stmt.executeQuery("select fName,lName from members ORDER BY lName");
                 while(rs.next()){
                     resultList.add(rs.getString("fName")+ " " + rs.getString("lName"));
+                }    
+            }
+            catch(Exception e){
+                System.out.println(e);
+            }        
+     return resultList;
+     
+     }
+     
+     /**
+      * Gets all faculty eligible to server on committee
+      * Checks to see if they are active or if date of last activity is more than 1 year ago (or has not been set and is null)
+      * @return arraylist of all eligible faculty
+      */
+      public ArrayList getEligibleFaculty(){
+            
+        resultList.clear();
+        try{
+                conn1 = DriverManager.getConnection(dbURL, "root", null);
+                Statement stmt = conn1.createStatement();
+                Calendar now = Calendar.getInstance();   // This gets the current date and time.
+                int year = now.get(Calendar.YEAR);   
+                ResultSet rs = stmt.executeQuery("select memberPK_id, fName,lName from members WHERE active = 'Yes' AND dateActivity > " + year + " OR dateActivity IS NULL ORDER BY lName");
+                while(rs.next()){
+                    resultList.add(rs.getString("memberPK_id")+": " + rs.getString("fName")+ " " + rs.getString("lName"));
                 }    
             }
             catch(Exception e){
