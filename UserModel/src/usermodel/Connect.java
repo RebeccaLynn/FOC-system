@@ -215,7 +215,7 @@ public class Connect {
                 Statement stmt = conn1.createStatement();
                 Calendar now = Calendar.getInstance();   // This gets the current date and time.
                 int year = now.get(Calendar.YEAR);   
-                ResultSet rs = stmt.executeQuery("select memberPK_id, fName,lName from members WHERE active = 'Yes' AND dateActivity > " + year + " OR dateActivity IS NULL ORDER BY lName");
+                ResultSet rs = stmt.executeQuery("select memberPK_id, fName,lName from members WHERE active = 'Yes' AND dateActivity + 1 < " + year + " OR dateActivity IS NULL ORDER BY lName");
                 while(rs.next()){
                     resultList.add(rs.getString("memberPK_id")+": " + rs.getString("fName")+ " " + rs.getString("lName"));
                 }    
@@ -633,9 +633,25 @@ public class Connect {
         
             System.out.println(e);
         }
-
-       
+    
     }
-  
+     
+     
+      public boolean assignPosition(String posID, String facultyID, String year){
+        try{ 
+            conn1 = DriverManager.getConnection(dbURL, "root", null);
+            Statement stmt = conn1.createStatement();
+            stmt.executeUpdate("UPDATE positions SET positions.posVacancy = " + year + " , positions.facultyFK_id = " + facultyID + " WHERE positionPK_id =" + posID);
+            stmt.executeUpdate("UPDATE members SET members.dateActivity = " + year + " WHERE members.memberPK_id =" + facultyID);
+            return true;   
+           
+            }
+            
+            catch(Exception e){
+                System.out.println(e);
+                return false;
+            }
+      
+    }
      
 }

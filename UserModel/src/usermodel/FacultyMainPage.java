@@ -780,6 +780,9 @@ public class FacultyMainPage extends javax.swing.JFrame {
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         Calendar now = Calendar.getInstance();   // This gets the current date and time.
         int year = now.get(Calendar.YEAR);
+        int currentYear = year;
+        String pos="";
+        String fac="";
         if(jRadioButton1.isSelected()){
             year = year + 1;
         }
@@ -793,21 +796,36 @@ public class FacultyMainPage extends javax.swing.JFrame {
             jLabel2.setForeground(Color.RED);
             jLabel2.setText("*Term Length:");
         }
-        if(jList5.getSelectedValue() != null){
-            String pos = jList4.getSelectedValue().toString();
+        try{
+            pos = jList5.getSelectedValue().toString();
         }
-        else{
+        catch(Exception e){
             jLabel7.setForeground(Color.RED);
             jLabel7.setText("*Open Positions:"); 
         }
-        if(jList6.getSelectedValue() != null){
-            String fac = jList6.getSelectedValue().toString();
+        try{
+            fac = jList6.getSelectedValue().toString();
         }
-        else{
+        catch(Exception e){
             jLabel6.setForeground(Color.RED);
             jLabel6.setText("*Faculty Eligible to Serve:"); 
         }
-        
+       if(!pos.equals("") && !fac.equals("") && currentYear != year){
+            int first = pos.toString().indexOf(":");
+            pos = pos.substring(0,first).trim();
+            first = fac.toString().indexOf(":");
+            fac = fac.substring(0,first).trim();
+            String endTerm = Integer.toString(year);
+            Connect c = new Connect ();
+            boolean success = c.assignPosition(pos,fac,endTerm);
+           if (success){
+                new QuerySuccess(this,true).setVisible(true);
+               this.refresh();
+             }
+             else{
+                  new QueryFailed(this,true).setVisible(true);
+             }
+       }
     }//GEN-LAST:event_jButton9ActionPerformed
 
     /**
