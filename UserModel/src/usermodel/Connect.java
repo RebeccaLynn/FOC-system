@@ -602,7 +602,10 @@ public class Connect {
 
         return resultsVal;
     }
-    
+    /**
+     * Remove position based on position primary key
+     * @param id positions.positionPK_id
+     */
      public void removePosition2(String id){
         try{ 
 

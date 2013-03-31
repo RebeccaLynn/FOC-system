@@ -557,18 +557,18 @@ public class FacultyMainPage extends javax.swing.JFrame {
 
         jInternalFrame5.setVisible(true);
 
-        jList7.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane7.setViewportView(jList7);
 
         jButton12.setText("Remove");
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
 
         jLabel22.setText("Currently Assigned Positions:");
 
-        jLabel23.setText("Select specific positions to remove faculty from position");
+        jLabel23.setText("Select one or more positions to remove faculty from position");
 
         javax.swing.GroupLayout jInternalFrame5Layout = new javax.swing.GroupLayout(jInternalFrame5.getContentPane());
         jInternalFrame5.getContentPane().setLayout(jInternalFrame5Layout);
@@ -721,6 +721,18 @@ public class FacultyMainPage extends javax.swing.JFrame {
             new SelectCommittee(this,true).setVisible(true);
         }
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+          Connect c = new Connect();
+          Object selectedValues[] = jList7.getSelectedValues();
+          for (int i = 0, n = selectedValues.length; i < n; i++) {
+               int first = selectedValues[i].toString().indexOf(":");
+               String id = selectedValues[i].toString().substring(0,first).trim();
+               System.out.println(id);
+               c.removePosition2(id.trim());
+          }
+          this.refresh();
+    }//GEN-LAST:event_jButton12ActionPerformed
 
     /**
     * @param args the command line arguments
