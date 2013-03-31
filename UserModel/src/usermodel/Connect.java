@@ -653,5 +653,42 @@ public class Connect {
             }
       
     }
-     
+            /**
+         * This function updates removes all positions ending in current year 
+         */
+        public boolean UpdateAll (){
+            try{
+                conn1 = DriverManager.getConnection(dbURL, "root", null);
+                 Statement stmt = conn1.createStatement();
+                Statement stmt1 = conn1.createStatement();
+                  Calendar now = Calendar.getInstance();   // This gets the current date and time.
+                int year = now.get(Calendar.YEAR);                 // This returns the year as an int.
+            
+                //get the faculty pk id if one
+             
+            ResultSet rs = stmt.executeQuery("select facultyFK_id from positions WHERE positions.posVacancy = " + year);
+            while(rs.next()){
+                String memberID = rs.getString("facultyFK_id");
+                String previous = "";
+                mID = Integer.parseInt(memberID);
+                ResultSet rs2 = stmt1.executeQuery("SELECT committees.cName, positions.posName FROM positions INNER JOIN committees ON committees.id = positions.positionFK_id WHERE positions.facultyFK_id = " + memberID);
+                while (rs2.next()){
+                    previous = rs2.getString("cName") + " " + rs2.getString("posName");
+                //    System.out.println(previous);
+                }
+                //update faculty assigned to positions with last date served and add previous positions
+                System.out.println("UPDATE members SET dateActivity =" + year + " , previousPos = " + previous + " WHERE memberPK_id = " + memberID);
+              stmt1.executeUpdate("UPDATE members SET dateActivity =" + year + " , previousPos = '" + previous + "' WHERE memberPK_id = " + memberID);
+            }
+           
+            stmt1.executeUpdate("UPDATE positions SET facultyFK_id = NULL WHERE posVacancy = " + year);
+                 return true;  
+    
+        }
+            catch(Exception e){
+        
+            System.out.println(e);
+            return false;
+        }
+      }
 }
