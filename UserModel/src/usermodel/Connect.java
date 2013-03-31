@@ -440,7 +440,7 @@ public class Connect {
                     link=findID.getInt("id");
                 }
                //Find the positions related to the desired committee
-                Statement findPositions=conn1.createStatement();
+                Statement findPositions=conn1.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
                 ResultSet positions=findPositions.executeQuery("Select positionPK_id from positions where positionFK_id="+link);
                 //iterate through the returned table and remove the related rose
                 while (positions.next()){
