@@ -695,7 +695,7 @@ public class Connect {
          /**
           * 
           * @param commName, the name of the committee to be searched
-          * @return the list of committee with the name
+          * @return the list of committee with all positions and people in position and year their terms in if applicable
           */
          public ArrayList searchCommittees(String commName){
             
@@ -703,14 +703,25 @@ public class Connect {
             try{
                 conn1 = DriverManager.getConnection(dbURL, "root", null);
                 Statement stmt = conn1.createStatement();
-                ResultSet rs = stmt.executeQuery("select cName from committees where cName LIKE '%"+commName+"%'");
+                ResultSet rs = stmt.executeQuery("select cName, positions.posName, positions.posVacancy, members.fName, members.lName from committees "
+                        + "LEFT JOIN positions ON committees.id = positionFK_id LEFT JOIN members ON positions.facultyFK_id = members.memberPK_id where cName LIKE '%"+commName+"%'");
                 while(rs.next()){
-                    resultList.add(rs.getString("cName"));
-                }    
+                    String first = rs.getString("fName"); 
+                    //if no one is assigned to position
+                    if (first == null){
+                        resultList.add(rs.getString("posName") + ": currently empty");
+                    }
+                    //get info about who is in position and when their term is over
+                    else{
+                    resultList.add(rs.getString("posName") + ": " + rs.getString("fName") + " " + rs.getString("lName"));
+                    resultList.add("      Filled until: " + rs.getString("posVacancy"));
+                    }
+               }    
             }
             catch(Exception e){
                 System.out.println(e);
-            }        
+            }   
+            
      return resultList;
      
      }

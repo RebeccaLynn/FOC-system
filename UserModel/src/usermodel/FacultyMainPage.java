@@ -440,6 +440,11 @@ public class FacultyMainPage extends javax.swing.JFrame {
         jLabel3.setText("List of all committees:");
 
         jButton8.setText("View");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
         jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
@@ -458,20 +463,20 @@ public class FacultyMainPage extends javax.swing.JFrame {
                         .addComponent(jButton6)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel10)
-                        .addGap(178, 178, 178))
-                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
                         .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jInternalFrame1Layout.createSequentialGroup()
                                 .addGap(128, 128, 128)
                                 .addComponent(jLabel9))
                             .addGroup(jInternalFrame1Layout.createSequentialGroup()
                                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(77, 77, 77))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(26, 26, 26))
+                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel10)
+                        .addGap(223, 223, 223))))
         );
         jInternalFrame1Layout.setVerticalGroup(
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -823,6 +828,28 @@ public class FacultyMainPage extends javax.swing.JFrame {
              }
        }
     }//GEN-LAST:event_jButton9ActionPerformed
+    /**
+     * Action listener for view committees button
+     * @param evt 
+     */
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+       try{
+           String committee = jList4.getSelectedValue().toString();
+           Connect c = new Connect ();
+           DefaultListModel listModel9 = new DefaultListModel();  
+           ArrayList<String> search;
+           search = c.searchCommittees(committee);
+           for (int i = 0; i < search.size(); i++){
+             listModel9.addElement(search.get(i));
+           }
+               jList2.setModel(listModel9);
+        }
+       
+         //if no committee is selected
+        catch(java.lang.NullPointerException e){
+            new SelectCommittee(this,true).setVisible(true);
+        }
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
     * @param args the command line arguments
