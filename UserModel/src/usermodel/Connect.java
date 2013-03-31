@@ -691,4 +691,54 @@ public class Connect {
             return false;
         }
       }
+        
+         /**
+          * 
+          * @param commName, the name of the committee to be searched
+          * @return the list of committee with the name
+          */
+         public ArrayList searchCommittees(String commName){
+            
+            resultList.clear();
+            try{
+                conn1 = DriverManager.getConnection(dbURL, "root", null);
+                Statement stmt = conn1.createStatement();
+                ResultSet rs = stmt.executeQuery("select cName from committees where cName LIKE '%"+commName+"%'");
+                while(rs.next()){
+                    resultList.add(rs.getString("cName"));
+                }    
+            }
+            catch(Exception e){
+                System.out.println(e);
+            }        
+     return resultList;
+     
+     }
+
+         /**
+          * 
+          * @param facName, the name of the member to search
+          * @return , list of the results.  All even indexes are the first name
+          * and odd indexes are the last name
+          */
+         public ArrayList searchFaculty(String facName){
+            
+            resultList.clear();
+            try{
+                conn1 = DriverManager.getConnection(dbURL, "root", null);
+                Statement stmt = conn1.createStatement();
+                ResultSet rs = stmt.executeQuery("select fName,lName from members "
+                        + "where fName LIKE '%"+facName+"%' OR lName LIKE '%"+facName+"%' ");
+                while(rs.next()){
+                    resultList.add(rs.getString("fName"));
+                    resultList.add(rs.getString("lName"));
+                }    
+            }
+            catch(Exception e){
+                System.out.println(e);
+            }        
+     return resultList;
+     
+     }
+
 }

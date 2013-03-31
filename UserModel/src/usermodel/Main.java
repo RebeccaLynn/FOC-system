@@ -29,20 +29,19 @@ public class Main {
         
        //sample.insertCommittee("NewOne");
         
-       sample.upDate();
+       //sample.upDate();
 
         
         //sample.editCommittee("Writing Intensive", "Bye Dude");
         
-        //getPost = sample.getAllCommittees();
+        getPost = sample.searchFaculty("Lee");
        
         for(int k=0; k<getPost.size(); k++)
         {
-         //   System.out.println(getPost.get(k));
+            System.out.println(getPost.get(k));
         
         }
-        
-       // System.out.println(sample.removePosition("Faculty Senate", "Charles M.", "Sharpless", "Department Senator Chemistry"));
+
     }
    
 }
