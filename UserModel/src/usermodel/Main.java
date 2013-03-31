@@ -34,7 +34,7 @@ public class Main {
         
         //sample.editCommittee("Writing Intensive", "Bye Dude");
         
-        getPost = sample.searchFaculty("Lee");
+        getPost = sample.searchFaculty("jangwoon lee");
        
         for(int k=0; k<getPost.size(); k++)
         {

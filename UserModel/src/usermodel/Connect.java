@@ -89,7 +89,7 @@ public class Connect {
                 Statement stmt = conn1.createStatement();
                 String query = "select members.*, positions.posName, committees.cName from members INNER JOIN positions ON members.memberPK_id = positions.facultyFK_id INNER JOIN committees ON positions.positionFK_id = committees.id"
                         + "  WHERE fName = '" + first + "' AND lName = '" + last + "';";
-                System.out.println(query);
+               
                 ResultSet rs = stmt.executeQuery(query);
                 boolean finish = false;
                 
@@ -729,23 +729,70 @@ public class Connect {
          /**
           * 
           * @param facName, the name of the member to search
-          * @return , list of the results.  All even indexes are the first name
-          * and odd indexes are the last name
+          * @return list of all information from members table about faculty and current position if applicable
           */
          public ArrayList searchFaculty(String facName){
             
             resultList.clear();
+            
             try{
                 conn1 = DriverManager.getConnection(dbURL, "root", null);
                 Statement stmt = conn1.createStatement();
-                ResultSet rs = stmt.executeQuery("select fName,lName from members "
-                        + "where fName LIKE '%"+facName+"%' OR lName LIKE '%"+facName+"%' ");
-                while(rs.next()){
-                    resultList.add(rs.getString("fName"));
-                    resultList.add(rs.getString("lName"));
-                }    
+                String first = "";
+                String last = "";
+                String query;
+                try{
+                      int lastSpace = facName.lastIndexOf(" ");
+                      first = facName.substring(0,lastSpace).trim();
+                      last = facName.substring(lastSpace, facName.length()).trim();   
+                       query = "select members.*, positions.posName, committees.cName from members LEFT JOIN positions ON members.memberPK_id = positions.facultyFK_id LEFT JOIN committees ON positions.positionFK_id = committees.id "
+                        + "where fName LIKE '%"+facName+"%' OR lName LIKE '%"+facName+"%' OR fName LIKE '%"+first +"%' OR lName LIKE '%"+ last + "%'";
+            }
+             catch(Exception e){
+                query = "select members.*, positions.posName, committees.cName from members LEFT JOIN positions ON members.memberPK_id = positions.facultyFK_id LEFT JOIN committees ON positions.positionFK_id = committees.id "
+                        + "where fName LIKE '%"+facName+"%' OR lName LIKE '%"+facName+"%'";
+            }
+                
+            ResultSet rs = stmt.executeQuery(query);
+              //    boolean finish = false;
+                
+             while(rs.next()){
+                   resultList.add(rs.getString("fName") + " " + rs.getString("lName"));
+                   String dept = rs.getString("department");
+                   if (dept != null){
+                       resultList.add("    Department: " + dept);
+                   }
+                   String act = rs.getString("active");
+                   if (act != null){
+                       resultList.add("    Currently Active: " + act);
+                   }
+                   String previous = rs.getString("previousPos");
+                   if (previous != null){
+                       resultList.add("    Previous Positions: " + previous);
+                   } 
+                   String phone = rs.getString("phone");
+                   System.out.println("x"+phone.equals(""));
+                   if (phone != null && !phone.equals("")){
+                       resultList.add("    Phone: " + phone);
+                   }
+                    String e = rs.getString("email");
+                   if (e != null && !e.equals("")){
+                       resultList.add("    Email: " + e);
+                   }
+                   String date = rs.getString("dateActivity");
+                   if (date != null){
+                       resultList.add("    Last Served On Committee: " + date);
+                   }
+                   String current = rs.getString("posName");
+                   if (current != null){
+                       resultList.add("    Current Position: " + rs.getString("cName") + " " + current);
+                   }
+                 
+           }
+      
             }
             catch(Exception e){
+                resultList.add("Try another search");
                 System.out.println(e);
             }        
      return resultList;
@@ -753,3 +800,8 @@ public class Connect {
      }
 
 }
+
+
+ 
+          
+              
