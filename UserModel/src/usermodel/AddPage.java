@@ -19,7 +19,8 @@ import java.awt.Color;
  */
 public class AddPage extends javax.swing.JFrame {
     /** Creates new form AddPage */
-    public AddPage() {
+    public AddPage(java.awt.Frame parent, boolean modal) {
+        //super(parent, modal);
         initComponents();
     }
 
@@ -220,8 +221,9 @@ public class AddPage extends javax.swing.JFrame {
            jTextField4.setText("");
            jTextField5.setText("");
            jTextField6.setText("");
-           this.dispose();
-        }
+           jLabel2.setForeground(Color.BLACK);
+           jLabel3.setForeground(Color.BLACK);
+       }
         else{
             new QueryFailed(this,true).setVisible(true);
         }
@@ -230,7 +232,7 @@ public class AddPage extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         //new FacultyMainPage().refresh();    
-        this.dispose();
+        this.setVisible(false);
            
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -240,7 +242,14 @@ public class AddPage extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AddPage().setVisible(true);
+                AddPage dialog = new AddPage(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }

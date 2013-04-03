@@ -486,9 +486,9 @@ public class FacultyMainPage extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel24)
                 .addGap(25, 25, 25)
-                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel10))
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane2)
@@ -732,7 +732,7 @@ public class FacultyMainPage extends javax.swing.JFrame {
  * @param evt Add button clicked
  */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        new AddPage().setVisible(true);
+        new AddPage(this, true).setVisible(true);
         this.refresh();
 
     }//GEN-LAST:event_jButton2ActionPerformed

@@ -25,7 +25,7 @@ public class Main {
         
         Connect sample = new Connect ();
         
-        
+        new FacultyMainPage().setVisible(true);
         
        //sample.insertCommittee("NewOne");
         
@@ -34,13 +34,13 @@ public class Main {
         
         //sample.editCommittee("Writing Intensive", "Bye Dude");
         
-        getPost = sample.searchFaculty("jangwoon lee");
+      //  getPost = sample.searchFaculty("jangwoon lee");
        
-        for(int k=0; k<getPost.size(); k++)
-        {
-            System.out.println(getPost.get(k));
+     //   for(int k=0; k<getPost.size(); k++)
+      //  {
+        //    System.out.println(getPost.get(k));
         
-        }
+      //  }
 
     }
    
