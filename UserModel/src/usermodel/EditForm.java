@@ -22,6 +22,7 @@ public class EditForm extends javax.swing.JFrame {
     public Connect c = new Connect ();
     /** Creates new form EditForm */
     public EditForm(String faculty) {
+        
         initComponents();
         int lastSpace = faculty.lastIndexOf(" ");
         String first = faculty.substring(0,lastSpace).trim();
@@ -38,14 +39,20 @@ public class EditForm extends javax.swing.JFrame {
         jTextField6.setText(info.get(5));
         jTextField7.setText(info.get(4));
         jTextField8.setText(info.get(8));
-        if(info.get(3).equals("Yes")){
-            jCheckBox1.setSelected (true); 
+        try{
+            if(info.get(3).equals("Yes")){
+                 jCheckBox1.setSelected (true); 
+            }
+        }
+        catch(Exception e){
+            jCheckBox1.setSelected(false);
         }
        if (len > 10){
             jLabel9.setText(jLabel9.getText() + " " + info.get(9));
             jLabel6.setText(jLabel6.getText() + " " + info.get(10));
        }
        key = info.get(len-1);     
+        
         
                 
     }
@@ -225,7 +232,7 @@ public class EditForm extends javax.swing.JFrame {
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addContainerGap(109, Short.MAX_VALUE))
+                .addContainerGap(113, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
