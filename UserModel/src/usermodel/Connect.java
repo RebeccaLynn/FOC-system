@@ -109,9 +109,9 @@ public class Connect {
                    finish = true;
              }
               if (!rs.next() && !finish){
-                    System.out.println("asdf");
+                    
                      query = "select * from members WHERE fName = '" + first + "' AND lName = '" + last + "';";
-                     System.out.println(query);
+                    // System.out.println(query);
                      rs = stmt.executeQuery(query);
                      while(rs.next()){
                         resultList.add(rs.getString("fName"));
@@ -125,6 +125,7 @@ public class Connect {
                         resultList.add(rs.getString("dateActivity"));
                         resultList.add(rs.getString("memberPK_id"));
                      }
+                            
                 }
               
             }
@@ -240,7 +241,7 @@ public class Connect {
      public boolean insertFaculty(String first, String last, String department, String position, String email, String phone){
        try{
                 conn1 = DriverManager.getConnection(dbURL, "root", null);
-                PreparedStatement statement = conn1.prepareStatement("INSERT INTO members (fName,lName,department,position,email,phone) VALUES ( ?, ?,?,?,?,?)");
+                PreparedStatement statement = conn1.prepareStatement("INSERT INTO members (fName,lName,department,position,email,phone, active) VALUES ( ?, ?,?,?,?,?, 'Yes')");
                 statement.setString(1, first);
                 statement.setString(2, last);
                 statement.setString(3, department);
@@ -635,7 +636,40 @@ public class Connect {
         }
     
     }
-     
+     /**
+      * Remove faculty member from position based on position PK Id (doesn't delete position)
+      * @param id positions.positionPK_id
+      */
+      public void removeAssignment(String id){
+        try{ 
+
+            conn1 = DriverManager.getConnection(dbURL, "root", null);
+            Statement stmt = conn1.createStatement();
+            Statement stmt1 = conn1.createStatement();
+            
+            
+            //get the faculty pk id if one
+         
+            ResultSet rs = stmt.executeQuery("select memberPK_id from members INNER JOIN positions ON positions.facultyFK_id = members.memberPK_id WHERE positions.positionPK_id = " + id);
+            while(rs.next()){
+                String memberID = rs.getString("memberPK_id");
+                mID = Integer.parseInt(memberID);
+                Calendar now = Calendar.getInstance();   // This gets the current date and time.
+                int year = now.get(Calendar.YEAR);                 // This returns the year as an int.
+                //update faculty assigned to position to current year for last date served
+               
+                stmt1.executeUpdate("UPDATE members SET dateActivity =" + year + " WHERE memberPK_id = " + memberID);
+                stmt1.executeUpdate("UPDATE positions SET facultyFK_id = null where positionPK_id = "+id);
+            }
+           
+           
+    
+        }catch(Exception e){
+        
+            System.out.println(e);
+        }
+    
+    }
      
       public boolean assignPosition(String posID, String facultyID, String year){
         try{ 

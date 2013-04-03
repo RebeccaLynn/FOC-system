@@ -793,8 +793,9 @@ public class FacultyMainPage extends javax.swing.JFrame {
                int first = selectedValues[i].toString().indexOf(":");
                String id = selectedValues[i].toString().substring(0,first).trim();
                System.out.println(id);
-               c.removePosition2(id.trim());
+               c.removeAssignment(id.trim());
           }
+           
           this.refresh();
     }//GEN-LAST:event_jButton12ActionPerformed
     /**
