@@ -69,7 +69,7 @@ public class Connect {
                 }    
             }
             catch(Exception e){
-                System.out.println("e");
+                System.out.println(e);
             }        
      return resultList;
      
@@ -266,7 +266,7 @@ public class Connect {
        public boolean editFaculty(String query){
        try{
                 conn1 = DriverManager.getConnection(dbURL, "root", null);
-                System.out.println(query);
+                //System.out.println(query);
                 PreparedStatement statement = conn1.prepareStatement(query);
                 statement.execute();
                return true;          
@@ -334,7 +334,7 @@ public class Connect {
                 }  
             }
             catch(Exception e){
-                System.out.println("wrong statement");
+                System.out.println(e);
             }
         return committee;
     }
@@ -370,13 +370,13 @@ public class Connect {
             }
             
             catch(Exception e){
-            System.out.println("Failed to insert Statement");
+           // System.out.println("Failed to insert Statement");
             return false;
             }
         }
         //if not print message
         else{
-            System.out.println("Committee Already Exists");
+          //  System.out.println("Committee Already Exists");
             return false;
         }
     }
@@ -414,11 +414,11 @@ public class Connect {
                 stmt.executeUpdate("UPDATE committees SET cName = \""+newName+"\" WHERE id = "+getCommitteeID()+"");
             }
             catch(Exception e){
-                System.out.println("CAN'T UPDATE COMMITTEE");
+               // System.out.println("CAN'T UPDATE COMMITTEE");
             }
         }
         else{
-            System.out.println("Committee does not exist");
+           // System.out.println("Committee does not exist");
         }
     }
 
@@ -431,7 +431,7 @@ public class Connect {
         if(checkCommittee(name)){
             int link = -1;
             try{
-                System.out.println(name);
+                //System.out.println(name);
                 conn1=DriverManager.getConnection(dbURL,"root",null); // connect to the database
                 //Find the requested committee's id
                 Statement findStmnt=conn1.createStatement( ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -452,7 +452,7 @@ public class Connect {
                 return true;
             }
             catch(Exception x){
-                System.out.println(x);
+                //System.out.println(x);
                 x.printStackTrace();
                 return false;
             }
@@ -481,7 +481,7 @@ public class Connect {
                 }  
             }
             catch(Exception e){
-                System.out.println("Postion does not exits");
+                //System.out.println("Postion does not exits");
             }
         return position;
     }
@@ -551,7 +551,7 @@ public class Connect {
             }
             
             catch(Exception e){
-                System.out.println("Failed to add new Position");
+                //System.out.println("Failed to add new Position");
                 position = false;
             }
         return position;
@@ -586,7 +586,7 @@ public class Connect {
                 mID = Integer.parseInt(memberID);
             }
             
-            System.out.println("pID: "+pID+" fID: "+mID);
+           // System.out.println("pID: "+pID+" fID: "+mID);
             if(pID <= 0 || mID <=0){
                 resultsVal = false;
             }else{
@@ -598,7 +598,7 @@ public class Connect {
     
         }catch(Exception e){
         
-            System.out.println("Couldn't Remove Pos");
+           // System.out.println("Couldn't Remove Pos");
         }
 
         return resultsVal;
@@ -624,7 +624,7 @@ public class Connect {
                 Calendar now = Calendar.getInstance();   // This gets the current date and time.
                 int year = now.get(Calendar.YEAR);                 // This returns the year as an int.
                 //update faculty assigned to position to current year for last date served
-                System.out.println("UPDATE members SET dateActivity =" + year + " WHERE memberPK_id = " + memberID);
+               // System.out.println("UPDATE members SET dateActivity =" + year + " WHERE memberPK_id = " + memberID);
                 stmt1.executeUpdate("UPDATE members SET dateActivity =" + year + " WHERE memberPK_id = " + memberID);
             }
            
@@ -711,7 +711,7 @@ public class Connect {
                 //    System.out.println(previous);
                 }
                 //update faculty assigned to positions with last date served and add previous positions
-                System.out.println("UPDATE members SET dateActivity =" + year + " , previousPos = " + previous + " WHERE memberPK_id = " + memberID);
+               // System.out.println("UPDATE members SET dateActivity =" + year + " , previousPos = " + previous + " WHERE memberPK_id = " + memberID);
               stmt1.executeUpdate("UPDATE members SET dateActivity =" + year + " , previousPos = '" + previous + "' WHERE memberPK_id = " + memberID);
             }
            
@@ -805,7 +805,7 @@ public class Connect {
                        resultList.add("    Previous Positions: " + previous);
                    } 
                    String phone = rs.getString("phone");
-                   System.out.println("x"+phone.equals(""));
+                  // System.out.println("x"+phone.equals(""));
                    if (phone != null && !phone.equals("")){
                        resultList.add("    Phone: " + phone);
                    }
